@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ariel Bapor — Portfolio</title>
+  <meta name="description" content="Ariel Bapor — BS Information Technology Student and Researcher based in Panabo, Davao del Norte." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --ink: #213448;
+      --slate: #547792;
+      --mist: #94B4C1;
+      --cream: #EAE0CF;
+      --white: #ffffff;
+      --off-white: #fdfdfd;
+
+      --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+      --max-width: 1024px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+
+      --transition: 0.2s ease;
+    }
+
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    /* ============================================================
+       TOP ACCENT BAR
+    ============================================================ */
+    .accent-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--ink);
+      z-index: 50;
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(148, 180, 193, 0.3);
+      z-index: 40;
+    }
+
+    .nav__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__logo {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: var(--ink);
+    }
+
+    .nav__logo span { color: var(--slate); }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 14px;
+    }
+
+    .nav__links a {
+      color: var(--slate);
+      transition: color var(--transition);
+    }
+
+    .nav__links a:hover { color: var(--ink); }
+
+    .nav__cta-mobile {
+      display: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 112px 24px 96px;
+    }
+
+    section { margin-bottom: 96px; }
+    section:last-of-type { margin-bottom: 0; }
+
+    /* ============================================================
+       SECTION HEADER
+    ============================================================ */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .section-header__label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--slate);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .section-header__line {
+      flex: 1;
+      height: 1px;
+      background: rgba(148, 180, 193, 0.4);
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero__photo-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .hero__photo-bg {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: var(--cream);
+    }
+
+    .hero__photo {
+      position: relative;
+      width: 144px;
+      height: 144px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 4px solid var(--white);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .hero__intro {
+      flex: 1;
+      text-align: center;
+    }
+
+    .hero__eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--slate);
+      margin-bottom: 16px;
+    }
+
+    .hero__name {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero__role {
+      font-size: 1.125rem;
+      color: var(--slate);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .hero__location {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--mist);
+      margin-bottom: 32px;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .btn svg { width: 16px; height: 16px; }
+
+    .btn--primary {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .btn--primary:hover { background: var(--slate); }
+
+    .btn--secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--mist);
+    }
+
+    .btn--secondary:hover { background: var(--cream); }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    .about p {
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: rgba(33, 52, 72, 0.82);
+      max-width: 720px;
+    }
+
+    /* ============================================================
+       TIMELINE
+    ============================================================ */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .timeline__item {
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .timeline__marker {
+      position: absolute;
+      left: 0;
+      top: 8px;
+    }
+
+    .timeline__dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--ink);
+      box-shadow: 0 0 0 4px var(--cream);
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline__item:not(:last-child) .timeline__marker::before {
+      content: "";
+      position: absolute;
+      left: 5.5px;
+      top: 16px;
+      bottom: -40px;
+      width: 1px;
+      background: var(--mist);
+    }
+
+    .timeline__header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .timeline__title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .timeline__date {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--slate);
+      white-space: nowrap;
+    }
+
+    .timeline__sub {
+      font-size: 14px;
+      color: var(--slate);
+    }
+
+    .timeline__desc {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--mist);
+      margin-top: 4px;
+    }
+
+    .timeline__bullets {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .timeline__bullets li {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: rgba(33, 52, 72, 0.75);
+    }
+
+    .timeline__bullets li::before {
+      content: "▸";
+      color: var(--mist);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ============================================================
+       SKILLS
+    ============================================================ */
+    .skills {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .skills__group-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .skills__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skills__tag {
+      display: inline-block;
+      padding: 6px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+    }
+
+    /* ============================================================
+       CONTACT CARD
+    ============================================================ */
+    .contact-card {
+      background: rgba(234, 224, 207, 0.5);
+      border: 1px solid rgba(148, 180, 193, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+
+    .contact-card__title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .contact-card__subtitle {
+      font-size: 14px;
+      color: var(--slate);
+      margin-bottom: 32px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--white);
+      border: 1px solid rgba(148, 180, 193, 0.4);
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition);
+    }
+
+    .contact-item:hover { border-color: var(--ink); }
+
+    .contact-item__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: rgba(33, 52, 72, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-item__icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--ink);
+    }
+
+    .contact-item__content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .contact-item__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mist);
+    }
+
+    .contact-item__value {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      transition: color var(--transition);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .contact-item:hover .contact-item__value { color: var(--slate); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      border-top: 1px solid rgba(148, 180, 193, 0.3);
+      padding: 32px 0;
+    }
+
+    .footer__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer__text {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--mist);
+    }
+
+    /* ============================================================
+       RESPONSIVE — TABLET & DESKTOP
+    ============================================================ */
+    @media (min-width: 768px) {
+      .hero__inner {
+        flex-direction: row;
+        align-items: center;
+        gap: 56px;
+      }
+
+      .hero__photo { width: 160px; height: 160px; }
+      .hero__intro { text-align: left; }
+      .hero__name { font-size: 3rem; }
+      .hero__actions { justify-content: flex-start; }
+
+      .timeline__header {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .footer__inner { flex-direction: row; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero__name { font-size: 3.75rem; }
+      .hero__photo { width: 176px; height: 176px; }
+    }
+
+    /* ============================================================
+       RESPONSIVE — MOBILE
+    ============================================================ */
+    @media (max-width: 640px) {
+      .nav__links { display: none; }
+      .nav__cta-mobile { display: block; }
+
+      .main { padding: 96px 20px 80px; }
+      section { margin-bottom: 72px; }
+
+      .contact-card { padding: 28px 20px; }
+      .contact-item__value { font-size: 13px; }
+    }
+
+    /* ============================================================
+       PRINT — Single-page A4
+    ============================================================ */
+    @media print {
+      @page { size: A4; margin: 10mm 14mm; }
+
+      html, body {
+        background: #fff !important;
+        font-size: 10pt;
+        line-height: 1.4;
+      }
+
+      .accent-bar,
+      .nav,
+      .footer,
+      .hero__actions {
+        display: none !important;
+      }
+
+      .main { padding: 0 !important; max-width: 100%; }
+
+      section { margin-bottom: 12pt; page-break-inside: avoid; }
+      .section-header { margin-bottom: 8pt; }
+
+      .hero__inner { flex-direction: row; gap: 16pt; }
+
+      .hero__photo {
+        width: 65pt;
+        height: 65pt;
+        border-width: 2pt;
+        box-shadow: none;
+      }
+
+      .hero__photo-bg { display: none; }
+
+      .hero__name { font-size: 16pt; margin-bottom: 3pt; }
+      .hero__role { font-size: 10pt; }
+      .hero__location { font-size: 9pt; margin-bottom: 0; }
+      .hero__eyebrow { font-size: 7pt; margin-bottom: 3pt; }
+
+      .about p { font-size: 9.5pt; }
+
+      .timeline { gap: 8pt; }
+      .timeline__item { padding-left: 12pt; }
+      .timeline__title { font-size: 10pt; }
+      .timeline__date { font-size: 7.5pt; }
+      .timeline__sub { font-size: 8.5pt; }
+      .timeline__bullets li { font-size: 8.5pt; }
+
+      .skills { gap: 8pt; }
+      .skills__tag {
+        font-size: 8pt;
+        padding: 2pt 8pt;
+        background: #f3f4f6 !important;
+      }
+
+      .contact-card {
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        padding: 12pt !important;
+      }
+
+      .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8pt !important;
+      }
+
+      .contact-item {
+        padding: 6pt !important;
+        border: none !important;
+      }
+
+      .contact-item__icon { display: none; }
+
+      a { color: #000 !important; text-decoration: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top accent bar -->
+  <div class="accent-bar"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__logo">ariel<span>.</span>bapor</a>
+      <div class="nav__links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="#contact" class="nav__cta-mobile">Contact</a>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section id="top" class="hero">
+      <div class="hero__inner">
+
+        <div class="hero__photo-wrap">
+          <div class="hero__photo-bg"></div>
+          <img src="bapor.png" alt="Ariel Bapor" class="hero__photo" />
+        </div>
+
+        <div class="hero__intro">
+          <p class="hero__eyebrow">Portfolio · 2025</p>
+          <h1 class="hero__name">Ariel Bapor</h1>
+          <p class="hero__role">BS Information Technology Student</p>
+          <p class="hero__location">Panabo, Davao del Norte</p>
+
+          <div class="hero__actions">
+            <a href="#contact" class="btn btn--primary">
+              Get in Touch
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="#experience" class="btn btn--secondary">
+              View Experience
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT
+    ============================================================ -->
+    <section id="about" class="about">
+      <div class="section-header">
+        <h2 class="section-header__label">About</h2>
+        <div class="section-header__line"></div>
+      </div>
+
+      <p>
+        BS Information Technology student with experience in academic research
+        and capstone project development. Passionate about applying technical
+        and analytical skills to build practical, research-driven solutions
+        and continuously learning emerging technologies.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         EXPERIENCE
+    ============================================================ -->
+    <section id="experience">
+      <div class="section-header">
+        <h2 class="section-header__label">Experience</h2>
+        <div class="section-header__line"></div>
+      </div>
+
+      <div class="timeline">
+
+        <article class="timeline__item">
+          <div class="timeline__marker">
+            <div class="timeline__dot"></div>
+          </div>
+          <div class="timeline__header">
+            <h3 class="timeline__title">Researcher</h3>
+            <span class="timeline__date">2025 — 2026</span>
+          </div>
+          <p class="timeline__sub">ARMS Capstone Project</p>
+          <p class="timeline__desc">Academic Research</p>
+
+          <ul class="timeline__bullets">
+            <li>Served as a researcher for the ARMS Capstone Project, contributing to the study's design and execution.</li>
+            <li>Conducted research and gathered data relevant to the project's objectives.</li>
+            <li>Collaborated with the research team to document findings and support the capstone development.</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         EDUCATION
+    ============================================================ -->
+    <section id="education">
+      <div class="section-header">
+        <h2 class="section-header__label">Education</h2>
+        <div class="section-header__line"></div>
+      </div>
+
+      <div class="timeline">
+
+        <article class="timeline__item">
+          <div class="timeline__marker">
+            <div class="timeline__dot"></div>
+          </div>
+          <div class="timeline__header">
+            <h3 class="timeline__title">BS Information Technology</h3>
+            <span class="timeline__date">2023 — Present</span>
+          </div>
+          <p class="timeline__sub">Davao del Norte State College</p>
+        </article>
+
+        <article class="timeline__item">
+          <div class="timeline__marker">
+            <div class="timeline__dot"></div>
+          </div>
+          <div class="timeline__header">
+            <h3 class="timeline__title">Senior High School</h3>
+            <span class="timeline__date">2021 — 2023</span>
+          </div>
+          <p class="timeline__sub">Panabo City National High School</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SKILLS
+    ============================================================ -->
+    <section id="skills">
+      <div class="section-header">
+        <h2 class="section-header__label">Skills</h2>
+        <div class="section-header__line"></div>
+      </div>
+
+      <div class="skills">
+
+        <!-- Research -->
+        <div class="skills__group">
+          <h3 class="skills__group-title">Research</h3>
+          <div class="skills__tags">
+            <span class="skills__tag">Academic Research</span>
+            <span class="skills__tag">Data Collection</span>
+            <span class="skills__tag">Data Analysis</span>
+            <span class="skills__tag">Technical Writing</span>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skills__group">
+          <h3 class="skills__group-title">Tools</h3>
+          <div class="skills__tags">
+            <span class="skills__tag">Microsoft Office</span>
+            <span class="skills__tag">Google Workspace</span>
+            <span class="skills__tag">Git &amp; GitHub</span>
+          </div>
+        </div>
+
+        <!-- Soft Skills -->
+        <div class="skills__group">
+          <h3 class="skills__group-title">Soft Skills</h3>
+          <div class="skills__tags">
+            <span class="skills__tag">Critical Thinking</span>
+            <span class="skills__tag">Teamwork</span>
+            <span class="skills__tag">Communication</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT
+    ============================================================ -->
+    <section id="contact">
+      <div class="section-header">
+        <h2 class="section-header__label">Contact</h2>
+        <div class="section-header__line"></div>
+      </div>
+
+      <div class="contact-card">
+        <h3 class="contact-card__title">Let's connect.</h3>
+        <p class="contact-card__subtitle">Open to opportunities, collaborations, and conversations.</p>
+
+        <div class="contact-grid">
+
+          <!-- Email -->
+          <a href="mailto:arielbapor@example.com" class="contact-item">
+            <div class="contact-item__icon">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"/>
+              </svg>
+            </div>
+            <div class="contact-item__content">
+              <p class="contact-item__label">Email</p>
+              <p class="contact-item__value">arielbapor@example.com</p>
+            </div>
+          </a>
+
+          <!-- GitHub -->
+          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="contact-item">
+            <div class="contact-item__icon">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.1c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 015.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.79.55A11.5 11.5 0 0023.5 12C23.5 5.73 18.27.5 12 .5z"/>
+              </svg>
+            </div>
+            <div class="contact-item__content">
+              <p class="contact-item__label">GitHub</p>
+              <p class="contact-item__value">github.com/yourusername</p>
+            </div>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="#" class="contact-item">
+            <div class="contact-item__icon">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
+              </svg>
+            </div>
+            <div class="contact-item__content">
+              <p class="contact-item__label">LinkedIn</p>
+              <p class="contact-item__value">Add your profile URL</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__text">© 2025 Ariel Bapor</p>
+      <p class="footer__text">Built with HTML &amp; CSS</p>
+    </div>
+  </footer>
+
+</body>
+</html>
